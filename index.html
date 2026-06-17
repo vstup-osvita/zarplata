@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Зарплата Pro</title>
+    
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%234facfe'/%3E%3Cpath d='M256 368c-6.9 0-13.3-1.6-19.1-4.7-5.8-3.1-10.7-7.4-14.7-12.9-4-5.5-7.1-12-9.2-19.5h-54c2.6 19 9.3 34.6 20.2 46.8 9.1 10.2 21 16.9 35.8 20.1V448h41.7v-49.7c15.4-2.1 28.5-8.2 39.4-18.4 10.9-10.2 16.3-23.7 16.3-40.5 0-16.1-5-28.8-15.1-38.1-10.1-9.3-24.8-16.4-44.1-21.2-13.4-3.3-23.3-6.6-29.6-9.9-6.3-3.3-9.5-8.1-9.5-14.4 0-5.5 2.1-10.1 6.4-13.7 4.3-3.6 10.3-5.5 17.9-5.5 8.2 0 14.8 2.1 19.9 6.4 5.1 4.3 8.3 10.4 9.6 18.3h52.3c-1.9-16.4-8.1-29.6-18.4-39.7-10.4-10.1-23.6-16.2-39.8-18.3V144h-41.7v50.2c-13.3 2.6-24.3 8.6-33.1 17.9-8.8 9.3-13.2 21.4-13.2 36.4 0 15.1 5.1 27.2 15.4 36.3 10.3 9.1 25.4 16.3 45.4 21.6 12.5 3.3 21.7 6.6 27.7 9.8 6 3.2 9 8 9 14.2 0 5.8-2.3 10.7-6.9 14.6-4.6 3.9-10.8 5.8-18.6 5.8z' fill='white'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%234facfe'/%3E%3Cpath d='M256 368c-6.9 0-13.3-1.6-19.1-4.7-5.8-3.1-10.7-7.4-14.7-12.9-4-5.5-7.1-12-9.2-19.5h-54c2.6 19 9.3 34.6 20.2 46.8 9.1 10.2 21 16.9 35.8 20.1V448h41.7v-49.7c15.4-2.1 28.5-8.2 39.4-18.4 10.9-10.2 16.3-23.7 16.3-40.5 0-16.1-5-28.8-15.1-38.1-10.1-9.3-24.8-16.4-44.1-21.2-13.4-3.3-23.3-6.6-29.6-9.9-6.3-3.3-9.5-8.1-9.5-14.4 0-5.5 2.1-10.1 6.4-13.7 4.3-3.6 10.3-5.5 17.9-5.5 8.2 0 14.8 2.1 19.9 6.4 5.1 4.3 8.3 10.4 9.6 18.3h52.3c-1.9-16.4-8.1-29.6-18.4-39.7-10.4-10.1-23.6-16.2-39.8-18.3V144h-41.7v50.2c-13.3 2.6-24.3 8.6-33.1 17.9-8.8 9.3-13.2 21.4-13.2 36.4 0 15.1 5.1 27.2 15.4 36.3 10.3 9.1 25.4 16.3 45.4 21.6 12.5 3.3 21.7 6.6 27.7 9.8 6 3.2 9 8 9 14.2 0 5.8-2.3 10.7-6.9 14.6-4.6 3.9-10.8 5.8-18.6 5.8z' fill='white'/%3E%3C/svg%3E">
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #4facfe;
+            --secondary: #00f2fe;
+            --danger: #ff6b6b;
+            --success: #28a745;
+            --text: #333;
+            --bg: #f0f2f5;
+            --card-bg: #fff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: center;
+            padding: 20px 10px;
+            margin: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            min-height: 80vh;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #eef2f7;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #666;
+        }
+        
+        .nav-tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+            position: relative;
+        }
+        
+        .summary-card.archive-mode {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .summary-total {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin: 5px 0;
+            line-height: 1;
+        }
+        
+        .summary-hours {
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-bottom: 15px;
+            opacity: 0.95;
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 10px;
+        }
+
+        .summary-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+            background: #f9f9f9;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            background: #fff;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        
+        button:active {
+            transform: scale(0.96);
+        }
+
+        .add-btn {
+            background-color: var(--success);
+            color: white;
+            padding: 0 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 24px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            margin-top: 10px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .archive-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #f8f9fa;
+            color: #666;
+            border: 1px dashed #ccc;
+            border-radius: 12px;
+            margin-top: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .history-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+
+        .date-info {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        .money-info {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--text);
+        }
+
+        .delete-btn {
+            background: #fff0f0;
+            color: var(--danger);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-left: 10px;
+            flex-shrink: 0;
+            border: 1px solid #ffdbdb;
+        }
+
+        .archive-list-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            position: relative;
+        }
+        
+        .archive-list-item:hover {
+            border-color: var(--primary);
+        }
+
+        .settings-block {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+        
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+        .col {
+            flex: 1;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 30px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const getTodayString = () => {
+            const d = new Date();
+            d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+            return d.toISOString().split('T')[0];
+        };
+
+        const formatDate = (dateString) => {
+            const d = new Date(dateString);
+            return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+        };
+
+        const downloadCSV = (entries, currency, filename) => {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "\uFEFF"; 
+            csvContent += "Дата,Часы,Ставка,Сумма (" + currency + ")\n";
+            entries.forEach(e => {
+                const row = `${e.date},${e.hours},${e.rateUsed},${e.total}`;
+                csvContent += row + "\n";
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", filename + ".csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        function App() {
+            const [view, setView] = useState('current');
+            const [selectedArchive, setSelectedArchive] = useState(null);
+
+            const [hourlyRate, setHourlyRate] = useState(() => localStorage.getItem('salaryRate') || 72);
+            const [currency, setCurrency] = useState(() => localStorage.getItem('salaryCurrency') || 'грн');
+
+            const [hours, setHours] = useState('');
+            const [date, setDate] = useState(getTodayString());
+            
+            const [entries, setEntries] = useState(() => {
+                const saved = localStorage.getItem('salaryHistory');
+                return saved ? JSON.parse(saved) : [];
+            });
+
+            const [archives, setArchives] = useState(() => {
+                const saved = localStorage.getItem('salaryArchives');
+                return saved ? JSON.parse(saved) : [];
+            });
+
+            useEffect(() => localStorage.setItem('salaryHistory', JSON.stringify(entries)), [entries]);
+            useEffect(() => localStorage.setItem('salaryArchives', JSON.stringify(archives)), [archives]);
+            useEffect(() => localStorage.setItem('salaryRate', hourlyRate), [hourlyRate]);
+            useEffect(() => localStorage.setItem('salaryCurrency', currency), [currency]);
+
+            const handleAdd = () => {
+                if (!hours || hours <= 0) return alert("Введите часы");
+                const newEntry = {
+                    id: Date.now(),
+                    date: date,
+                    hours: parseFloat(hours),
+                    total: parseFloat(hours) * parseFloat(hourlyRate), 
+                    rateUsed: parseFloat(hourlyRate)
+                };
+                setEntries([newEntry, ...entries]);
+                setHours(''); 
+            };
+
+            const handleDeleteItem = (id) => {
+                if(confirm('Удалить эту запись?')) {
+                    setEntries(entries.filter(item => item.id !== id));
+                }
+            };
+
+            const handleDeleteArchive = (e, id) => {
+                e.stopPropagation(); 
+                if (confirm("Вы точно хотите удалить этот архив безвозвратно?")) {
+                    setArchives(archives.filter(a => a.id !== id));
+                }
+            };
+
+            const handleArchive = () => {
+                if (entries.length === 0) return alert("Нет данных для архивации.");
+                const defaultName = new Date().toLocaleString('ru-RU', { month: 'long', year: 'numeric' });
+                const name = prompt("Название для этого периода (например 'Январь 2025'):", defaultName);
+                
+                if (name) {
+                    const totalSum = entries.reduce((acc, item) => acc + item.total, 0);
+                    const newArchive = {
+                        id: Date.now(),
+                        name: name,
+                        dateCreated: new Date().toISOString(),
+                        totalSum: totalSum,
+                        entries: [...entries],
+                        currencySnapshot: currency
+                    };
+                    setArchives([newArchive, ...archives]);
+                    setEntries([]);
+                    alert("Период сохранен в Архив. Начинаем с чистого листа!");
+                }
+            };
+
+            const openArchive = (archive) => {
+                setSelectedArchive(archive);
+                setView('archive_detail');
+            };
+
+            const grandTotal = entries.reduce((acc, item) => acc + item.total, 0);
+            const totalHours = entries.reduce((acc, item) => acc + item.hours, 0);
+
+            // Рендеры
+            const renderCurrent = () => (
+                <>
+                    <div className="summary-card">
+                        <div className="summary-label">Текущий период</div>
+                        <div className="summary-total">{grandTotal.toLocaleString()} {currency}</div>
+                        <div className="summary-hours">Всего: {totalHours} ч.</div>
+                        
+                        <button className="secondary-btn" style={{borderColor:'white', color:'white', opacity:0.9}} 
+                            onClick={() => downloadCSV(entries, currency, 'Зарплата_Текущая')}>
+                            Скачать отчет (CSV)
+                        </button>
+                    </div>
+
+                    <div className="settings-block">
+                        <div className="row">
+                            <div className="col" style={{flex: 2}}>
+                                <label>Ставка/час</label>
+                                <input type="number" value={hourlyRate} onChange={(e) => setHourlyRate(e.target.value)} />
+                            </div>
+                            <div className="col" style={{flex: 1}}>
+                                <label>Валюта</label>
+                                <input type="text" value={currency} onChange={(e) => setCurrency(e.target.value)} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="input-group">
+                        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                    </div>
+                    
+                    <div className="input-group">
+                        <input type="number" placeholder="Часов..." value={hours} inputMode="decimal" onChange={(e) => setHours(e.target.value)} />
+                        <button className="add-btn" onClick={handleAdd}>+</button>
+                    </div>
+
+                    <ul className="history-list">
+                        {entries.length === 0 && <div className="empty-state">Пока нет записей в этом месяце</div>}
+                        {entries.map(item => (
+                            <li key={item.id} className="history-item">
+                                <div>
+                                    <div className="money-info">+{item.total.toLocaleString()} {currency}</div>
+                                    <div className="date-info">{formatDate(item.date)} • {item.hours} ч.</div>
+                                </div>
+                                <button className="delete-btn" onClick={() => handleDeleteItem(item.id)}>✕</button>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <button className="archive-btn" onClick={handleArchive}>
+                        📥 Завершить период и начать новый
+                    </button>
+                </>
+            );
+
+            const renderArchivesList = () => (
+                <>
+                    <h3 style={{color:'#666', textAlign:'center'}}>История периодов</h3>
+                    {archives.length === 0 && <div className="empty-state">Архив пуст.</div>}
+                    
+                    <div className="history-list">
+                        {archives.map(arch => {
+                            const archHours = arch.entries.reduce((acc, i) => acc + i.hours, 0);
+                            return (
+                                <div key={arch.id} className="archive-list-item" onClick={() => openArchive(arch)}>
+                                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'flex-start'}}>
+                                        <div>
+                                            <div style={{fontWeight:'bold', fontSize:'1.1rem'}}>{arch.name}</div>
+                                            <div style={{color:'#666', marginTop:'5px', fontSize:'0.9rem'}}>
+                                                {arch.entries.length} записей • {archHours} ч.
+                                            </div>
+                                            <strong style={{color: 'var(--primary)', display:'block', marginTop:'5px'}}>
+                                                {arch.totalSum.toLocaleString()} {arch.currencySnapshot || currency}
+                                            </strong>
+                                        </div>
+                                        <button 
+                                            className="delete-btn" 
+                                            onClick={(e) => handleDeleteArchive(e, arch.id)}
+                                            title="Удалить архив"
+                                        >
+                                            ✕
+                                        </button>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </>
+            );
+
+            const renderArchiveDetail = () => {
+                const archTotalHours = selectedArchive.entries.reduce((acc, item) => acc + item.hours, 0);
+                
+                return (
+                    <>
+                        <button onClick={() => setView('archives')} style={{background:'none', color:'#666', fontSize:'16px', padding:'10px 0', display:'flex', alignItems:'center'}}>
+                            ← Назад к списку
+                        </button>
+
+                        <div className="summary-card archive-mode">
+                            <div className="summary-label">{selectedArchive.name}</div>
+                            <div className="summary-total">
+                                {selectedArchive.totalSum.toLocaleString()} {selectedArchive.currencySnapshot || currency}
+                            </div>
+                            <div className="summary-hours">Всего: {archTotalHours} ч.</div>
+                            
+                            <button className="secondary-btn" style={{borderColor:'white', color:'white', opacity:0.9}} 
+                                onClick={() => downloadCSV(selectedArchive.entries, selectedArchive.currencySnapshot || currency, `Зарплата_${selectedArchive.name}`)}>
+                                Скачать отчет (CSV)
+                            </button>
+                        </div>
+
+                        <ul className="history-list">
+                            {selectedArchive.entries.map(item => (
+                                <li key={item.id} className="history-item" style={{background:'#fafafa'}}>
+                                    <div>
+                                        <div className="money-info">+{item.total.toLocaleString()} {selectedArchive.currencySnapshot || currency}</div>
+                                        <div className="date-info">
+                                            {formatDate(item.date)} • {item.hours} ч. (по {item.rateUsed})
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                );
+            };
+
+            return (
+                <div className="container">
+                    <div className="nav-tabs">
+                        <div className={`nav-tab ${view === 'current' ? 'active' : ''}`} onClick={() => setView('current')}>
+                            Сейчас
+                        </div>
+                        <div className={`nav-tab ${view !== 'current' ? 'active' : ''}`} onClick={() => setView('archives')}>
+                            Архив / История
+                        </div>
+                    </div>
+
+                    {view === 'current' && renderCurrent()}
+                    {view === 'archives' && renderArchivesList()}
+                    {view === 'archive_detail' && selectedArchive && renderArchiveDetail()}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
